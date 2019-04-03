@@ -24,16 +24,14 @@ public class CountDownLatchTest {
          final List<Integer> data = new ArrayList<Integer>();//可以换成Vector,实现线程安全
         ExecutorService pool = Executors.newCachedThreadPool();
         final CountDownLatch count=new CountDownLatch(20);
-        Runnable task=new Runnable() {
-            public void run() {
-                try {
-                    count.await(); //等待其他线程
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                for (int i = 0; i < 100; i++) {
-                    data.add(i);
-                }
+        Runnable task= () -> {
+            try {
+                count.await(); //等待其他线程
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            for (int i = 0; i < 100; i++) {
+                data.add(i);
             }
         };
         for (int i = 0; i < 20; i++) {//偶尔出现等于2000，原因是for循环没有准确的并发。

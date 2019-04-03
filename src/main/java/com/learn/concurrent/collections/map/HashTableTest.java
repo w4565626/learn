@@ -1,6 +1,5 @@
-package com.learn.collections.map;
+package com.learn.concurrent.collections.map;
 
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -15,18 +14,21 @@ import java.util.concurrent.Executors;
 public class HashTableTest {
 
     public static void main(String[] args) {
-        final HashMap<String,String> map=new HashMap<String, String>();
+        final Hashtable<String,String> map=new Hashtable<String, String>();
         ExecutorService pool= Executors.newCachedThreadPool();
-        pool.execute(new Runnable() {
-            public void run() {
-                for(int i=0;i<100;i++){
-                    map.put(UUID.randomUUID().toString(),"");
+        for(int i=0;i<100;i++){
+            pool.execute(new Runnable() {
+                public void run() {
+                    for(int i=0;i<100;i++){
+                        map.put(UUID.randomUUID().toString(),"");
+                    }
                 }
-            }
-        });
+            });
+        }
         pool.shutdown();
         while (true){
             if (pool.isTerminated()){
+                //线程安全的结果应该为10000，不安全会小于这个数字
                 System.out.println(map.size());
                 break;
             }

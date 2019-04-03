@@ -1,13 +1,15 @@
-package com.learn.collections;
+package com.learn.concurrent.collections.list;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
-public class list {
+/**
+ * List:
+ */
+public class listTest {
     /**
      * arraylist和linkedlist比较
      */
