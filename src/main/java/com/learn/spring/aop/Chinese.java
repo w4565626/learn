@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class Chinese implements Person {
 
-    @Timer
+//    @Timer
     public String sayHello(String name) {
         System.out.println("--sayHello()--");
         return name + ":hello";

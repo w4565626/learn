@@ -4,6 +4,7 @@ import java.util.concurrent.*;
 
 /**
  * Executor:线程池，负责管理工作线程，包括一个等待执行任务队列。
+ *
  */
 public class ExecutorTest {
     private static ExecutorService pool;
@@ -20,7 +21,7 @@ public class ExecutorTest {
         //ThreadPoolExecutor方式创建，推荐！
         //corePoolSize - 线程池核心池的基本大小。
         //maximumPoolSize - 线程池的最大线程数。
-        //keepAliveTime - 当线程数大于核心时，此为终止前多余的空闲线程等待新任务的最长时间。
+        //keepAliveTime - 当线程数大于核心时，此为终止前多余的空闲线程等待新任务的最长时间。线程最大空闲时间
         //unit - keepAliveTime 的时间单位。
         //workQueue - 用来储存等待执行任务的队列。
         //threadFactory - 线程工厂。
