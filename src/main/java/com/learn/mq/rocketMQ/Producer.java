@@ -74,6 +74,25 @@ public class Producer {
         producer.shutdown();
     }
 
+    //单向消息
+    public static void sendOneWay(String msg, String topic) {
+        DefaultMQProducer producer = new DefaultMQProducer("please_rename_unique_group_name");
+        try {
+            ////设置NameServer地址,此处应改为实际NameServer地址，多个地址之间用；分隔
+            producer.setNamesrvAddr(url);
+            //为避免程序启动的时候报错，添加此代码，可以让rocketMq自动创建topickey
+            producer.setCreateTopicKey("AUTO_CREATE_TOPIC_KEY");
+            producer.start();
+            Message message = new Message(topic, msg.getBytes());
+            producer.sendOneway(message);
+            System.out.println("消息发送成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            producer.shutdown();
+        }
+    }
+
     /**
      * 选择队列发送消息,顺序消息
      *

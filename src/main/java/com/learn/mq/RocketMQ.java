@@ -67,7 +67,7 @@ public class RocketMQ {
     }
 
     /**
-     * 事务消息：采用两阶段提交
+     * 事务消息：采用两阶段提交(分布式事务解决方案)
      * 1. 发送方向mq发送"待确认"消息
      * 2.mq收到"待确认"消息并持久化，回复发送方成功。一阶段完成
      * 3.发送方开始执行本地事务逻辑
@@ -83,4 +83,16 @@ public class RocketMQ {
         Producer producer = new Producer();
         producer.sendTransaction(msg,TOPIC);
     }
+
+    /**
+     * 单向消息：只负责发送消息，不等待服务器回应且没有回调函数触发。效率高，微秒级别。
+     * 适用于某些耗时非常短，对可靠性要求不高的场景，如日志收集。
+     */
+    @Test
+    public void test3() {
+        String msg = "测试消息";
+        Producer producer = new Producer();
+        producer.sendOneWay(msg,TOPIC);
+    }
+
 }
